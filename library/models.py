@@ -11,8 +11,8 @@ class Students(db.Model):
     index = db.Column(db.Integer(), nullable=False)
     department = db.Column(db.String(length=60), nullable=False)
     semester = db.Column(db.Integer(), nullable=False)
-    issue = db.relationship('Issue', back_populates='issue', lazy=False)
-    login = db.relationship('StudentLogin', back_populates='studentlogin', lazy=False)
+    issues = db.relationship('Issue', back_populates='student', lazy=False)
+    login = db.relationship('StudentLogin', back_populates='student', lazy=False)
 
 
 class Teachers(db.Model):
@@ -21,7 +21,7 @@ class Teachers(db.Model):
     name = db.Column(db.String(length=60), nullable=False)
     department = db.Column(db.String(length=60), nullable=False)
     number = db.Column(db.Integer(), nullable=False)
-    login = db.relationship('TeacherLogin', back_populates='teacherlogin', lazy=False)
+    login = db.relationship('TeacherLogin', back_populates='teacher', lazy=False)
 
 
 @login_manager.user_loader
@@ -37,7 +37,7 @@ class StudentLogin(db.Model, UserMixin):
     password_hash = db.Column(db.String(length=60), nullable=False)
     number_of_books = db.Column(db.Integer())
     student_id = db.Column(db.Integer(), db.ForeignKey('students.id'), nullable=False)
-    student = db.relationship('Students', back_populates='students', lazy=False)
+    student = db.relationship('Students', back_populates='login', lazy=False)
 
     @property
     def password(self):
@@ -63,7 +63,7 @@ class TeacherLogin(db.Model, UserMixin):
     email_address = db.Column(db.String(length=50), nullable=False, unique=True)
     password_hash = db.Column(db.String(length=60), nullable=False)
     teacher_id = db.Column(db.Integer(), db.ForeignKey('teachers.id'), nullable=False)
-    teacher = db.relationship('Teachers', back_populates='teachers', lazy=False)
+    teacher = db.relationship('Teachers', back_populates='login', lazy=False)
 
     @property
     def password(self):
@@ -86,7 +86,7 @@ class Books(db.Model):
     categories = db.Column(db.String(length=255))
     avg_rate = db.Column(db.Integer())
     number_of_copies = db.Column(db.Integer())
-    issue = db.relationship('Issue', back_populates='issue', lazy=False)
+    issues = db.relationship('Issue', back_populates='book', lazy=False)
 
 
 class Issue(db.Model):
@@ -96,5 +96,5 @@ class Issue(db.Model):
     student_id = db.Column(db.Integer(), db.ForeignKey('students.id'), nullable=False)
     issue_date = db.Column(db.DateTime(), nullable=False, default=datetime.date.today())
     return_date = db.Column(db.DateTime(), nullable=False, default=datetime.date.today() + relativedelta(months=1))
-    book = db.relationship("Books", back_populates="books", lazy=False)
-    student = db.relationship("Students", back_populates="students", lazy=False)
+    book = db.relationship("Books", back_populates="issues", lazy=False)
+    student = db.relationship("Students", back_populates="issues", lazy=False)
