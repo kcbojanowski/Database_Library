@@ -8,7 +8,8 @@ with open('google_books_dataset.csv', 'r') as f:
     rows = list(reader)
 
 for row in rows[1:]:
-    book = Books(title=row[1], authors=row[1], language=row[2], categories=row[3],
+    book = Books(title=row[0], authors=row[1].lstrip('[\'').rstrip('\']'), language=row[2],
+                 categories=row[3].lstrip('[\'').rstrip('\']'),
                  avg_rate=int(float(row[4])) if row[4] != '' else row[4], number_of_copies=random.randint(1, 20))
     db.session.add(book)
 db.session.commit()

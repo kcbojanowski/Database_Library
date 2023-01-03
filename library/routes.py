@@ -12,11 +12,11 @@ import requests
 @app.route('/')
 @app.route('/home')
 def home_page():
-    query0 = 'SELECT title, authors, categories, avg_rate FROM books ORDER BY title'
+    query0 = 'SELECT title, authors, categories, avg_rate, number_of_copies FROM books ORDER BY title'
     all_books = db.session.execute(query0)
     books_list = []
     for row in all_books:
-        if row.amount != 0:
+        if row.number_of_copies != 0:
             books_dict = {'title': row.title, 'authors': row.authors, 'categories': row.categories, 'avg_rate': row.avg_rate}
             books_list.append(books_dict)
     return render_template('index.html', books=books_list)

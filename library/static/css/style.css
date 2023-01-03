@@ -118,6 +118,12 @@ header
     color: #61876E!important;
   }
 
-.books {
-  height: 400px;
+  .books {
+    margin-bottom: 50px;
+
+  }
+.table_books {
+   padding: 2%;
+   height: 700px;
+   overflow-y: scroll;
 }

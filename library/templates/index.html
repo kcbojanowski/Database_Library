@@ -38,13 +38,13 @@
 
     <div class="books container">
             <h2>Available Books</h2>
+            <div class="table_books">
             <table class="table table-hover">
                 <thead>
                     <tr>
                         <th>Title</th>
                         <th>Author</th>
                         <th>Category</th>
-                        <th>Avg Rate</th>
                         <th>Issue now</th>
                     </tr>
                 </thead>
@@ -52,7 +52,7 @@
 
                 </tbody>
             </table>
-
+            </div>
     </div>
 </main>
 
@@ -60,6 +60,10 @@
 
 <script src="https://kit.fontawesome.com/05a09beaf0.js" crossorigin="anonymous"></script>
 <script>
+    window.addEventListener("load", ()=>{
+    loadBooks();
+    });
+
     function loadBooks() {
     const BooksTxt = document.querySelector(".books .table tbody")
     all_books = {{ books | tojson }}
@@ -73,7 +77,6 @@
                         <td>${value['title']}</td>
                         <td>${value['authors']}</td>
                         <td>${value['categories']}</td>
-                        <td>${value['avg_rate']}</td>
                         <td><a type="button"><i class="fa-solid fa-caret-right"></i></a></td>
                     </tr>`
         BooksTxt.insertAdjacentHTML("beforeend", book);
