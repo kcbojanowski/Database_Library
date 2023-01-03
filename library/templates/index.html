@@ -44,6 +44,7 @@
                         <th>Title</th>
                         <th>Author</th>
                         <th>Category</th>
+                        <th>Avg Rate</th>
                         <th>Issue now</th>
                     </tr>
                 </thead>
@@ -58,4 +59,25 @@
 </body>
 
 <script src="https://kit.fontawesome.com/05a09beaf0.js" crossorigin="anonymous"></script>
+<script>
+    function loadBooks() {
+    const BooksTxt = document.querySelector(".books .table tbody")
+    all_books = {{ books | tojson }}
+
+    if (BooksTxt !== ""){
+                BooksTxt.innerHTML = ""
+    }
+
+    for (const [key, value] of Object.entries(all_books)) {
+        let book = `<tr>
+                        <td>${value['title']}</td>
+                        <td>${value['authors']}</td>
+                        <td>${value['categories']}</td>
+                        <td>${value['avg_rate']}</td>
+                        <td><a type="button"><i class="fa-solid fa-caret-right"></i></a></td>
+                    </tr>`
+        BooksTxt.insertAdjacentHTML("beforeend", book);
+    }
+}
+</script>
 </html>
