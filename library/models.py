@@ -85,6 +85,7 @@ class Books(db.Model):
     language = db.Column(db.String(length=255))
     categories = db.Column(db.String(length=255))
     avg_rate = db.Column(db.Integer())
+    number_of_copies = db.Column(db.Integer())
     issue = db.relationship('Issue', back_populates='issue', lazy=False)
 
 

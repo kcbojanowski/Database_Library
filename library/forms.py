@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField
+from wtforms import StringField, PasswordField, SubmitField, SelectField
 from wtforms.validators import Length, EqualTo, Email, DataRequired, ValidationError
 from library.models import StudentLogin, TeacherLogin
 
@@ -43,4 +43,5 @@ class RegisterFormTeacherLogin(FlaskForm):
 class LoginForm(FlaskForm):
     username = StringField(validators=[DataRequired()])
     password = PasswordField(validators=[DataRequired()])
+    teacher = SelectField(label="Teacher", choices=[(True, 'Teacher')])
     submit = SubmitField(label="Log in")

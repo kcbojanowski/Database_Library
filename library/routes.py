@@ -2,6 +2,8 @@ import datetime
 from flask import render_template, redirect, url_for, flash, request, jsonify
 from flask_login import login_user, logout_user, login_required, current_user
 from library import app
+from library.forms import LoginForm, RegisterFormTeacherLogin, RegisterFormStudent
+from library.models import TeacherLogin, StudentLogin
 from library import db
 import requests
 
