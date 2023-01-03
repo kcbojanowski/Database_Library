@@ -8,7 +8,7 @@ global styles
 */
 html,
 body {
-  background: #fff;
+  background: #eee;
   font-family: 'Poppins', sans-serif;
 }
 
@@ -102,7 +102,7 @@ header
 
   .header-area .main-nav .nav li {
     width: 100%;
-    background: #fff;
+    background: #eee;
     border-bottom: 1px solid #e7e7e7;
     padding-left: 0px !important;
     padding-right: 0px !important;
