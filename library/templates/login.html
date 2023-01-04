@@ -17,9 +17,6 @@
 {#            <input type="checkbox" id="admincheck" /><label for="switch"> Admin</label>#}
             <form method="POST" class="form-signin login">
                 {{ form.hidden_tag() }}
-                <div class="form-button ">
-                    {{ form.teacher(class="btn") }}
-                </div>
                 <div class="login__field">
                     <i class="signin__icon fa-solid fa-hashtag"></i>
                    {{ form.username(class="form-control login__input", placeholder="Index") }}

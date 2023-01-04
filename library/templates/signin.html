@@ -14,25 +14,38 @@
 	<div class="screen">
 		<div class="screen__content">
             <a class="backhome" href="/home"><i class="fa-solid fa-arrow-left-long fa-lg"></i></a>
-			<form class="login">
+			<form method="POST" class="login">
+				{{ form.hidden_tag() }}
 				<div class="signin__field">
 					<i class="signin__icon fas fa-user"></i>
-					<input type="text" class="login__input" placeholder="Name">
+					{{ form.username(class="login__input",placeholder="Name") }}
+				</div>
+				<div class="signin__field">
+					<i class="signin__icon fas fa-user"></i>
+					{{ form.email_address(class="login__input",placeholder="Email") }}
+				</div>
+				<div class="signin__field">
+					<i class="signin__icon fas fa-hashtag"></i>
+					{{ form.semester(class="login__input",placeholder="Semester") }}
+				</div>
+				<div class="signin__field">
+					<i class="signin__icon fas fa-hashtag"></i>
+					{{ form.department(class="login__input",placeholder="Department") }}
 				</div>
                 <div class="signin__field">
 					<i class="signin__icon fa-solid fa-hashtag"></i>
-					<input type="text" class="login__input" placeholder="Index">
+					{{ form.index(class="login__input",placeholder="Index") }}
 				</div>
 				<div class="signin__field">
 					<i class="signin__icon fas fa-lock"></i>
-					<input type="password" class="login__input" placeholder="Password">
+					{{ form.password1(class="login__input",placeholder="Password") }}
 				</div>
                 <div class="signin__field">
 					<i class="signin__icon fas fa-lock"></i>
-					<input type="password" class="login__input" placeholder="Repeat Password">
+					{{ form.password2(class="login__input",placeholder="Repeat Password") }}
 				</div>
 				<button class="button login__submit">
-					<span class="button__text">Sign in now</span>
+					{{ form.submit(class="button__text") }}
 					<i class="button__icon fas fa-chevron-right"></i>
 				</button>
 			</form>

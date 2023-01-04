@@ -23,8 +23,15 @@
                 <ul class="nav">
                   <li><a href="/home" class="active">Home </a></li>
                   <li><a href="/history">History</a></li>
-                  <li><a href="/login">Login</a></li>
-                  <li><a href="/signin">Sign in</a></li>
+                  {% if not current_user.is_authenticated %}
+                    <li><a href="/login">Login</a></li>
+                    <li><a href="/signin">Sign in</a></li>
+                  {% elif current_user.is_authenticated and current_user.id == 1 %}
+                    <li><a href="/admin">Admin Panel</a></li>
+                    <li><a href="/logout">Logout</a></li>
+                  {% else %}
+                    <li><a href="/logout">Logout</a></li>
+                  {% endif %}
                 </ul>
               </div>
 
