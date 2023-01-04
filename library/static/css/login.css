@@ -21,7 +21,7 @@ body {
 .screen {
 	background: linear-gradient(90deg, #61876E, #A6BB8D);
 	position: relative;
-	height: 600px;
+	height: 750px;
 	width: 360px;
 	box-shadow: 0px 0px 24px #61876E;
 }
