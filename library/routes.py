@@ -8,17 +8,18 @@ from library import db
 import requests
 
 
-
-@app.route('/')
-@app.route('/home')
+@app.route('/', methods=['POST'])
+@app.route('/home', methods=['POST'])
 def home_page():
-    query0 = 'SELECT title, authors, categories, avg_rate, number_of_copies FROM books ORDER BY title'
+    query0 = 'SELECT * FROM books ORDER BY title'
     all_books = db.session.execute(query0)
     books_list = []
     for row in all_books:
         if row.number_of_copies != 0:
-            books_dict = {'title': row.title, 'authors': row.authors, 'categories': row.categories, 'avg_rate': row.avg_rate}
+            books_dict = {'id': row.id, 'title': row.title, 'authors': row.authors, 'categories': row.categories, 'avg_rate': row.avg_rate}
             books_list.append(books_dict)
+
+
     return render_template('index.html', books=books_list)
 
 
@@ -68,3 +69,4 @@ def logout_page():
     logout_user()
     flash("You have been logged out!", category='info')
     return redirect(url_for("home_page"))
+

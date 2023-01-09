@@ -66,28 +66,34 @@
 </body>
 
 <script src="https://kit.fontawesome.com/05a09beaf0.js" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script>
     window.addEventListener("load", ()=>{
     loadBooks();
     });
 
     function loadBooks() {
-    const BooksTxt = document.querySelector(".books .table tbody")
-    all_books = {{ books | tojson }}
+        const BooksTxt = document.querySelector(".books .table tbody")
+        all_books = {{ books | tojson }}
 
-    if (BooksTxt !== ""){
-                BooksTxt.innerHTML = ""
-    }
+        if (BooksTxt !== ""){
+                    BooksTxt.innerHTML = ""
+        }
 
-    for (const [key, value] of Object.entries(all_books)) {
-        let book = `<tr>
-                        <td>${value['title']}</td>
-                        <td>${value['authors']}</td>
-                        <td>${value['categories']}</td>
-                        <td><a type="button"><i class="fa-solid fa-caret-right"></i></a></td>
-                    </tr>`
-        BooksTxt.insertAdjacentHTML("beforeend", book);
-    }
+        for (const [key, value] of Object.entries(all_books)) {
+            let book = `<tr>
+                            <td>${value['title']}</td>
+                            <td>${value['authors']}</td>
+                            <td>${value['categories']}</td>
+                            <td><a type="button" onclick="Issue(${value['id']})"><i class="fa-solid fa-caret-right"></i></a></td>
+                        </tr>`
+            BooksTxt.insertAdjacentHTML("beforeend", book);
+        }
 }
+
+    function Issue(id){
+            id = xd;
+    }
 </script>
+
 </html>
