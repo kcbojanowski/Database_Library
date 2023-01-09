@@ -1,3 +1,5 @@
+from sqlalchemy import CheckConstraint
+
 from library import db, login_manager
 from library import bcrypt
 from flask_login import UserMixin
@@ -52,6 +54,9 @@ class Books(db.Model):
     avg_rate = db.Column(db.Integer())
     number_of_copies = db.Column(db.Integer())
     issues = db.relationship('Issue', back_populates='book', lazy=False)
+    __table_args__ = (
+        CheckConstraint(number_of_copies >= 0, name='check_copies_positive'),
+        {})
 
 
 class Issue(db.Model):
