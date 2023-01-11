@@ -3,13 +3,13 @@ from flask import render_template, redirect, url_for, flash, request, jsonify
 from flask_login import login_user, logout_user, login_required, current_user
 from library import app
 from library.forms import LoginForm,  RegisterForm
-from library.models import StudentLogin, Students
+from library.models import StudentLogin, Students, Issue, Books
 from library import db
 import requests
 
 
-@app.route('/', methods=['POST'])
-@app.route('/home', methods=['POST'])
+@app.route('/')
+@app.route('/home')
 def home_page():
     query0 = 'SELECT * FROM books ORDER BY title'
     all_books = db.session.execute(query0)
@@ -19,8 +19,26 @@ def home_page():
             books_dict = {'id': row.id, 'title': row.title, 'authors': row.authors, 'categories': row.categories, 'avg_rate': row.avg_rate}
             books_list.append(books_dict)
 
-
     return render_template('index.html', books=books_list)
+
+
+@app.route('/', methods=['POST'])
+@app.route('/home', methods=['POST'])
+def home_page_post():
+    data = request.get_json(force=True)
+    if data:
+        try:
+            obj = Issue(book_id=data['id'], student_id=current_user.id)
+            db.session.add(obj)
+            query1 = 'UPDATE books SET number_of_copies = number_of_copies - 1 WHERE id = :book_id'
+            result = db.session.execute(query1, {'book_id': data['id']})
+            db.session.commit()
+            return '', 204
+        except:
+            flash("Issue canceled", category='danger')
+            return 'Issue canceled', 400
+    else:
+        return 'Issue canceled', 400
 
 
 @app.route('/admin')

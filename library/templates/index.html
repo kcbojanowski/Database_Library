@@ -92,8 +92,25 @@
 }
 
     function Issue(id){
-            id = xd;
+        $.ajax({
+            url: "/home",
+            type: "POST",
+            data: JSON.stringify( {
+                'id': id,
+            }),
+            contentType: "application/json",
+            success: function() {
+            location.reload();
+            }
+        })
+        .done(function (data){
+            alert("Book issued")
+        })
+        .fail(function (xhr, status, errorThrown) {
+            alert("Issue refused")
+        })
     }
+
 </script>
 
 </html>
