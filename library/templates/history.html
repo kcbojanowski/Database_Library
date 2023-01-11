@@ -48,11 +48,11 @@
             <table class="table table-hover">
                 <thead>
                     <tr>
+                        <th>Issue ID</th>
                         <th>Title</th>
-                        <th>Author</th>
+                        <th>Authors</th>
                         <th>Issue Date</th>
                         <th>Return Date</th>
-                        <th>Returned</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -66,4 +66,25 @@
 </body>
 
 <script src="https://kit.fontawesome.com/05a09beaf0.js" crossorigin="anonymous"></script>
+<script>
+    window.addEventListener("load", ()=>{
+    loadHistory();
+    });
+
+    function loadHistory() {
+        const HistoryTxt = document.querySelector(".history .table tbody")
+        all_issues = {{ issues | tojson }}
+
+        for (const [key, value] of Object.entries(all_issues)) {
+            let history = `<tr>
+                            <td>${value['id']}</td>
+                            <td>${value['title']}</td>
+                            <td>${value['authors']}</td>
+                            <td>${value['issue_date']}</td>
+                            <td>${value['return_date']}</td>
+                        </tr>`
+            HistoryTxt.insertAdjacentHTML("beforeend", history);
+        }
+    }
+</script>
 </html>

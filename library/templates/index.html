@@ -76,10 +76,6 @@
         const BooksTxt = document.querySelector(".books .table tbody")
         all_books = {{ books | tojson }}
 
-        if (BooksTxt !== ""){
-                    BooksTxt.innerHTML = ""
-        }
-
         for (const [key, value] of Object.entries(all_books)) {
             let book = `<tr>
                             <td>${value['title']}</td>
