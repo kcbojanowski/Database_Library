@@ -22,7 +22,9 @@
               <div class="menu container">
                 <ul class="nav">
                   <li><a href="/home" class="active">Home </a></li>
-                  <li><a href="/history">History</a></li>
+                  {% if current_user.is_authenticated and current_user.id != 1 %}
+                  <li><a href="/history">Your Books</a></li>
+                  {% endif %}
                   {% if not current_user.is_authenticated %}
                     <li><a href="/login">Login</a></li>
                     <li><a href="/signin">Sign in</a></li>

@@ -22,7 +22,9 @@
               <div class="menu container">
                 <ul class="nav">
                   <li><a href="/home" >Home </a></li>
-                  <li><a class="active" href="/history">History</a></li>
+                  {% if current_user.is_authenticated and current_user.id != 1 %}
+                  <li><a class="active" href="/history">Your Books</a></li>
+                  {% endif %}
                   {% if not current_user.is_authenticated %}
                     <li><a href="/login">Login</a></li>
                     <li><a href="/signin">Sign in</a></li>
@@ -44,11 +46,10 @@
 <main>
 
     <div class="history container">
-            <h2>History</h2>
+            <h2>Issued Books</h2>
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th>Issue ID</th>
                         <th>Title</th>
                         <th>Authors</th>
                         <th>Issue Date</th>
@@ -77,11 +78,10 @@
 
         for (const [key, value] of Object.entries(all_issues)) {
             let history = `<tr>
-                            <td>${value['id']}</td>
                             <td>${value['title']}</td>
                             <td>${value['authors']}</td>
-                            <td>${value['issue_date']}</td>
-                            <td>${value['return_date']}</td>
+                            <td>${value['issue_date'].slice(0,10)}</td>
+                            <td>${value['return_date'].slice(0,10)}</td>
                         </tr>`
             HistoryTxt.insertAdjacentHTML("beforeend", history);
         }

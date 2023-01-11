@@ -104,11 +104,11 @@ def signin_page():
 
 @app.route('/history')
 def history_page():
-    query0 = 'select i.id, b.title, b.authors, i.issue_date, i.return_date from books b, issue i where b.id=i.book_id order by issue_date'
+    query0 = f'select b.title, b.authors, i.issue_date, i.return_date from books b, issue i where b.id=i.book_id and {current_user.id}=i.student_id order by issue_date'
     all_issues = db.session.execute(query0)
     issues_list = []
     for row in all_issues:
-        issues_dict = {'id': row.id, 'title': row.title, 'authors': row.authors, 'issue_date': row.issue_date, 'return_date': row.return_date}
+        issues_dict = {'title': row.title, 'authors': row.authors, 'issue_date': row.issue_date, 'return_date': row.return_date}
         issues_list.append(issues_dict)
     return render_template('history.html', issues=issues_list)
 
