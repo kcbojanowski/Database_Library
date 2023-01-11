@@ -73,6 +73,7 @@
 </body>
 
 <script src="https://kit.fontawesome.com/05a09beaf0.js" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script>
     window.addEventListener("load", ()=>{
     loadAdminPanel();
@@ -94,17 +95,17 @@
                             <td>${value['title']}</td>
                             <td>${value['issue_date']}</td>
                             <td>${value['return_date']}</td>
-                            <td><a type="button" onclick="Return(String(${value['title']}), ${value['id']})"><i class="fa-solid fa-caret-right"></i></a></td>
+                            <td><a type="button" onclick="Ret(${value['book_id']}, ${value['id']})"><i class="fa-solid fa-caret-right"></i></a></td>
                         </tr>`
             IssueTxt.insertAdjacentHTML("beforeend", issue);
         }
     }
-function Return(title, id){
+    function Ret(book_id, id){
             $.ajax({
             url: "/admin",
             type: "POST",
-            data: JSON.stringify( {
-                'title': title,
+            data: JSON.stringify({
+                'book_id': book_id,
                 'id': id,
             }),
             contentType: "application/json",

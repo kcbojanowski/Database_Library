@@ -43,11 +43,11 @@ def home_page_post():
 
 @app.route('/admin')
 def admin_page():
-    query0 = "Select s.'index',s.department, s.semester, b.title, i.issue_date, i.return_date, i.id from books b, issue i, students s where i.book_id=b.id and i.student_id=s.id;"
+    query0 = "Select s.'index',s.department, s.semester, b.title, i.issue_date, i.return_date, i.id, b.id as 'book_id' from books b, issue i, students s where i.book_id=b.id and i.student_id=s.id;"
     all_issued = db.session.execute(query0)
     issue_list = []
     for row in all_issued:
-        issue_dict = {'id': row.id, 'index': row.index, 'department': row.department, 'semester': row.semester,
+        issue_dict = {'book_id': row.book_id, 'id': row.id, 'index': row.index, 'department': row.department, 'semester': row.semester,
                       'title': row.title, 'issue_date': row.issue_date, 'return_date': row.return_date}
         issue_list.append(issue_dict)
     return render_template('admin.html', issue=issue_list)
@@ -59,8 +59,8 @@ def admin_page_post():
     if data:
         try:
             query0 = 'Delete from issue where id = :id'
-            query1 = 'UPDATE books SET number_of_copies = number_of_copies + 1 WHERE title = :book_title'
-            db.session.execute(query1, {'book_title': data['title']})
+            query1 = 'UPDATE books SET number_of_copies = number_of_copies + 1 WHERE id = :book_id'
+            db.session.execute(query1, {'book_id': data['book_id']})
             db.session.execute(query0, {'id': data['id']})
             db.session.commit()
             return '', 204
