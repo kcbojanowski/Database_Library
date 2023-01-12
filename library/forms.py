@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, SelectField
+from wtforms import StringField, PasswordField, SubmitField, IntegerField
 from wtforms.validators import Length, EqualTo, Email, DataRequired, ValidationError
 from library.models import StudentLogin
 
@@ -18,8 +18,8 @@ class RegisterForm(FlaskForm):
     username = StringField(validators=[Length(min=2, max=30), DataRequired()])
     email_address = StringField(validators=[Email(), DataRequired()])
     index = StringField(validators=[Length(min=6, max=6), DataRequired()])
-    semester = StringField(validators=[Length(max=1), DataRequired()])
-    department = StringField(validators=[Length(min=6, max=6), DataRequired()])
+    semester = IntegerField(validators=[Length(max=1), DataRequired()])
+    department = StringField(validators=[Length(min=3, max=6), DataRequired()])
     password1 = PasswordField(validators=[Length(min=6), DataRequired()])
     password2 = PasswordField(validators=[EqualTo('password1'), DataRequired()])
     submit = SubmitField(label="Register")

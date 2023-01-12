@@ -99,6 +99,7 @@ def signin_page():
         db.session.add(user_to_create)
         db.session.commit()
         login_user(user_to_create)
+        return redirect(url_for('home_page'))
     return render_template('signin.html', form=form)
 
 
