@@ -122,8 +122,12 @@ header
     margin-bottom: 50px;
 
   }
-.table_books {
+.table_books, .table_history, .table_admin {
    padding: 2%;
    height: 700px;
    overflow-y: scroll;
+}
+
+.table_history td {
+  min-width: 200px;
 }

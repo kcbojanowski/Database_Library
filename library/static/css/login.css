@@ -163,6 +163,11 @@ body {
 	color: #A6BB8D;
 }
 
+.button__text{
+	background: none;
+	border: none;
+}
+
 .backhome {
 	position: absolute;
 	padding: 20px;
