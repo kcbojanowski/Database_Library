@@ -28,7 +28,6 @@ class StudentLogin(db.Model, UserMixin):
     username = db.Column(db.String(length=30), nullable=False, unique=True)
     email_address = db.Column(db.String(length=50), nullable=False, unique=True)
     password_hash = db.Column(db.String(length=60), nullable=False)
-    number_of_books = db.Column(db.Integer())
     student_id = db.Column(db.Integer(), db.ForeignKey('students.index'), nullable=False)
     student = db.relationship('Students', back_populates='login', lazy=False)
 

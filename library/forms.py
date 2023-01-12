@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, IntegerField
-from wtforms.validators import Length, EqualTo, Email, DataRequired, ValidationError
+from wtforms import StringField, PasswordField, SubmitField, IntegerField, SelectField
+from wtforms.validators import Length, EqualTo, Email, DataRequired, ValidationError, NumberRange
 from library.models import StudentLogin
 
 
@@ -17,9 +17,12 @@ class RegisterForm(FlaskForm):
 
     username = StringField(validators=[Length(min=2, max=30), DataRequired()])
     email_address = StringField(validators=[Email(), DataRequired()])
-    index = StringField(validators=[Length(min=6, max=6), DataRequired()])
-    semester = IntegerField(validators=[Length(max=1), DataRequired()])
-    department = StringField(validators=[Length(min=3, max=6), DataRequired()])
+    index = IntegerField(validators=[NumberRange(min=111111, max=999999), DataRequired()])
+    semester = IntegerField(validators=[NumberRange(min=1, max=9), DataRequired()])
+    department = SelectField(choices=(('wiet', "WIET"), ('wiligz', 'WILGZ'), ('wimip', 'WIMIP'), ('weaiib', 'WEAIIB'),
+                                      ('wimir', 'WIMIR'), ('wggioś', 'WGGIOŚ'), ('wggiś', 'WGGIŚ'), ('wimic', 'WIMIC'),
+                                      ('wo', 'WO'), ('wmn', 'WMN'), ('wwng', 'WWNG'), ('wz', 'WZ'), ('weip', 'WEIP'),
+                                      ('wfis', 'WFIS'), ('wms', 'WMS'), ('wh', 'WH')), validators=[DataRequired()])
     password1 = PasswordField(validators=[Length(min=6), DataRequired()])
     password2 = PasswordField(validators=[EqualTo('password1'), DataRequired()])
     submit = SubmitField(label="Register")
