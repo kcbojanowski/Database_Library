@@ -83,7 +83,7 @@
                             <td>${value['issue_date'].slice(0,10)}</td>
                             <td>${value['return_date'].slice(0,10)}</td>
                         </tr>`
-            HistoryTxt.insertAdjacentHTML("beforeend", history);
+            HistoryTxt.insertAdjacentHTML("afterbegin", history);
         }
     }
 </script>

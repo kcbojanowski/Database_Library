@@ -97,7 +97,7 @@
                             <td>${value['return_date']}</td>
                             <td><a type="button" onclick="Ret(${value['book_id']}, ${value['id']})"><i class="fa-solid fa-caret-right"></i></a></td>
                         </tr>`
-            IssueTxt.insertAdjacentHTML("beforeend", issue);
+            IssueTxt.insertAdjacentHTML("afterbegin", issue);
         }
     }
     function Ret(book_id, id){
