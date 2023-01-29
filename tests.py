@@ -17,7 +17,7 @@ class TestStudentsModel(unittest.TestCase):
     def test_student_attributes(self):
         # Test that the student has the correct attributes
         student = Students.query.filter_by(index=111111).first()
-        self.assertEqual(student.index, 111111)
+        self.assertEqual(student.id_number, 111111)
         self.assertEqual(student.department, 'WIET')
         self.assertEqual(student.semester, 3)
 

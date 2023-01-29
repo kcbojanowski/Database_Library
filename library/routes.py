@@ -47,7 +47,7 @@ def admin_page():
     all_issued = db.session.execute(query0)
     issue_list = []
     for row in all_issued:
-        issue_dict = {'book_id': row.book_id, 'id': row.id, 'index': row.index, 'department': row.department, 'semester': row.semester,
+        issue_dict = {'book_id': row.book_id, 'id': row.id, 'index': row.id_number, 'department': row.department, 'semester': row.semester,
                       'title': row.title, 'issue_date': row.issue_date, 'return_date': row.return_date}
         issue_list.append(issue_dict)
     return render_template('admin.html', issue=issue_list)
