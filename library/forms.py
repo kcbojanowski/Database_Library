@@ -2,6 +2,19 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, IntegerField, SelectField
 from wtforms.validators import Length, EqualTo, Email, DataRequired, ValidationError, NumberRange
 from library.models import StudentLogin
+import os
+import csv
+
+
+def departments_upload():
+    current_dir = os.path.abspath(os.path.dirname(__file__))
+    file_path = os.path.join(current_dir, 'departments.csv')
+    choices = []
+    with open(file_path, 'r') as file:
+        reader = csv.reader(file)
+        for row in reader:
+            choices.append((row[0], row[1]))
+    return tuple(choices)
 
 
 class RegisterForm(FlaskForm):
@@ -19,10 +32,7 @@ class RegisterForm(FlaskForm):
     email_address = StringField(validators=[Email(), DataRequired()])
     index = IntegerField(validators=[NumberRange(min=111111, max=999999), DataRequired()])
     semester = IntegerField(validators=[NumberRange(min=1, max=9), DataRequired()])
-    department = SelectField(choices=(('wiet', "WIET"), ('wiligz', 'WILGZ'), ('wimip', 'WIMIP'), ('weaiib', 'WEAIIB'),
-                                      ('wimir', 'WIMIR'), ('wggioś', 'WGGIOŚ'), ('wggiś', 'WGGIŚ'), ('wimic', 'WIMIC'),
-                                      ('wo', 'WO'), ('wmn', 'WMN'), ('wwng', 'WWNG'), ('wz', 'WZ'), ('weip', 'WEIP'),
-                                      ('wfis', 'WFIS'), ('wms', 'WMS'), ('wh', 'WH')), validators=[DataRequired()])
+    department = SelectField(choices=departments_upload(), validators=[DataRequired()])
     password1 = PasswordField(validators=[Length(min=6), DataRequired()])
     password2 = PasswordField(validators=[EqualTo('password1'), DataRequired()])
     submit = SubmitField(label="Register")
