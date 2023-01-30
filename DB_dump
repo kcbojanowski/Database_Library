@@ -1,0 +1,53 @@
+create table books
+(
+    id               INTEGER      not null
+        primary key,
+    title            VARCHAR(255) not null,
+    authors          VARCHAR(255),
+    language         VARCHAR(6),
+    categories       VARCHAR(255),
+    avg_rate         INTEGER,
+    number_of_copies INTEGER,
+    check (length(language) <= 6),
+    check (number_of_copies >= 0)
+);
+
+create table students
+(
+    id         INTEGER    not null
+        primary key,
+    id_number  INTEGER    not null
+        unique,
+    department VARCHAR(6) not null,
+    semester   INTEGER    not null,
+    check (id_number >= 111111 AND id_number <= 999999),
+    check (length(department) <= 6),
+    check (semester >= 1 AND semester <= 9)
+);
+
+create table issue
+(
+    id          INTEGER  not null
+        primary key,
+    book_id     INTEGER  not null
+        references books,
+    student_id  INTEGER  not null
+        references students (id_number),
+    issue_date  DATETIME not null,
+    return_date DATETIME not null
+);
+
+create table studentlogin
+(
+    id            INTEGER     not null
+        primary key,
+    username      VARCHAR(30) not null
+        unique,
+    email_address VARCHAR(50) not null
+        unique,
+    password_hash VARCHAR(60) not null,
+    student_id    INTEGER     not null
+        references students (id_number),
+    check (email_address LIKE '%_@__%.__%'),
+    check (length(username) <= 30)
+);

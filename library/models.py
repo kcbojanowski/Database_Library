@@ -14,8 +14,8 @@ class Students(db.Model):
                           unique=True)
     department = db.Column(db.String(length=6), CheckConstraint("length(department) <=6"), nullable=False)
     semester = db.Column(db.Integer(), CheckConstraint("semester >= 1 AND semester <= 9"), nullable=False)
-    issues = db.relationship('Issue', back_populates='student', lazy=False)
-    login = db.relationship('StudentLogin', back_populates='student', lazy=False)
+    issues = db.relationship('Issue', cascade="all,delete", back_populates='student', lazy=False)
+    login = db.relationship('StudentLogin', cascade="all,delete", back_populates='student', lazy=False)
 
 
 @login_manager.user_loader
@@ -54,7 +54,7 @@ class Books(db.Model):
     categories = db.Column(db.String(length=255))
     avg_rate = db.Column(db.Integer())
     number_of_copies = db.Column(db.Integer(), CheckConstraint("number_of_copies >= 0"))
-    issues = db.relationship('Issue', back_populates='book', lazy=False)
+    issues = db.relationship('Issue', cascade="all,delete", back_populates='book', lazy=False)
 
 
 class Issue(db.Model):
